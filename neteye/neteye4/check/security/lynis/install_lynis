@@ -1,0 +1,38 @@
+#!/bin/bash
+# install_lynis
+# Version: 0.1
+# 11.08.2019  Simone Cagol, Italy
+# Thanks to contributors:
+# - Massimo Giaimo
+#---------------------------------------------------
+# this script install and update lynis from git
+#---------------------------------------------------
+
+
+
+cd /usr/local
+
+pwd=$(pwd)
+if [ "$pwd" = "/usr/local" ]; then
+	if [ -d "/usr/local/lynis" ]; then
+		if [ -d "/usr/local/lynis.old" ]; then
+			echo "Delete lynis.old"
+			rm -rf /usr/local/lynis.old
+		fi
+		echo "Save lynis in lynis.old"
+		mv /usr/local/lynis /usr/local/lynis.old
+	fi
+
+	echo "Git clone"
+	git clone https://github.com/CISOfy/lynis
+	cd lynis
+	pwd=$(pwd)
+	if [ "$pwd" = "/usr/local/lynis" ]; then
+		echo "OK"
+	else
+		echo "ERROR /usr/local/lynis"
+	fi
+else
+	echo "ERROR /usr/local"
+
+fi
